@@ -3,6 +3,7 @@ import React from 'react'
 const useObraSocial = () => {
 
    const obraSociales = [
+        'Seleccionar',
         'Avalian',
         'AMENT',
         'Sancor Seguros',
@@ -13,7 +14,7 @@ const useObraSocial = () => {
         'Pami',
         'Omint',
         'Ioma',
-        'Particular'
+        'Particular',
     ]
 
   return { obraSociales }
