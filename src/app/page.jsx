@@ -1,17 +1,20 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import useObraSocial from '../../app-hooks/useObraSocial/useObraSocial';
+import useObraSocial from '../../app-hooks/useObraSocial';
 import useProfesionales from '../../app-hooks/useProfesionales';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { formatearFecha } from '@/helpers';
 import useHora from '../../app-hooks/useHora';
+import { useRouter } from 'next/navigation';
+import useTurnos from '../../app-hooks/useTurnos';
 
 const HomePage = () => {
 
   const { obraSociales } = useObraSocial()
   const { medicos } = useProfesionales()
   const { horario } = useHora()
+  const { dateTurnos, setDateTurnos } = useTurnos()
 
   const [btnRadio, setBtnRadio] = useState('');
   const [startDate, setStartDate] = useState(new Date());
@@ -58,7 +61,14 @@ const HomePage = () => {
     setChangeDate(true);
   };
 
-  console.log(form);
+  const router = useRouter()
+
+  const submitDataForm = e =>{
+    setDateTurnos(form)
+    router.push('/turno')
+  }
+
+ 
 
   return (
     <div className='flex justify-center py-6 px-10 '>
@@ -169,7 +179,7 @@ const HomePage = () => {
                 <>
                   <span
                     onClick={() => handleHora(hr)}
-                    className={`badge badge-lg p-4 bg-slate-600 text-[#fff] cursor-pointer ${horarios == hr ? 'bg-sky-600' : ''}`}
+                    className={`badge badge-lg p-4  text-[#fff] cursor-pointer ${horarios == hr ? 'bg-sky-600' : 'bg-slate-600'}`}
                   >
                     {hr}
                   </span>
@@ -178,7 +188,7 @@ const HomePage = () => {
             </div>
 
             <div className='flex justify-end'>
-              <button className="btn text-[#fff] bg-sky-600 hover:bg-sky-600 ">Continuar</button>
+              <button onClick={()=> submitDataForm()} className="btn text-[#fff] bg-sky-600 hover:bg-sky-600 ">Continuar</button>
             </div>
           </>
         }
