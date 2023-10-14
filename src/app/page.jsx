@@ -8,6 +8,7 @@ import { formatearFecha } from '@/helpers';
 import useHora from '../../app-hooks/useHora';
 import { useRouter } from 'next/navigation';
 import useTurnos from '../../app-hooks/useTurnos';
+import SignIn from '@/components/SignIn';
 
 const HomePage = () => {
 
@@ -71,7 +72,7 @@ const HomePage = () => {
  
 
   return (
-    <div className='flex justify-center py-6 px-10 '>
+    <div className='flex items-center justify-center gap-5 py-6 px-10 flex-col'>
       <div className='shadow-md p-6 w-[500px]'>
         <div className='mb-6'>
           <h1 className='text-2xl font-bold'>Solicitar turno online</h1>
@@ -193,6 +194,10 @@ const HomePage = () => {
           </>
         }
 
+      </div>
+
+      <div className='shadow-md p-6 w-[500px]'>
+          <SignIn />
       </div>
     </div>
   )
