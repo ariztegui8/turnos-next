@@ -82,10 +82,11 @@ const Drawer = () => {
                     </li>
                   </>
                   :
+                  ''
 
-                  <li className="font-semibold">
-                    <Link onClick={() => { signIn() }} href="/dashboard">Sign In</Link>
-                  </li>
+                  // <li className="font-semibold">
+                  //   <Link onClick={() => { signIn() }} href="/dashboard">Sign In</Link>
+                  // </li>
                 }
               </ul>
             </div>
@@ -102,14 +103,14 @@ const Drawer = () => {
                 </div>
               </Link>
             </li>
-            <li className="font-semibold">
+            {/* <li className="font-semibold">
               <Link onClick={() => { signIn(); handleClick(); }} href="#">
                 <div className="flex items-center gap-2">
                   <AiFillHome size={25} />
                   <p>Sign In</p>
                 </div>
               </Link>
-            </li>
+            </li> */}
             {/* <li>
               <Link onClick={handleClick} href="/about">
                 <div className="flex items-center gap-2">
