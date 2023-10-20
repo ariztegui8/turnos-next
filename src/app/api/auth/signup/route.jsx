@@ -18,7 +18,7 @@ export async function POST(request) {
     if (userFound)
         return NextResponse.json({
             message: "El email ya existe"
-        }, { status: 400 })
+        }, { status: 409 })
 
     const hashedPassword = await bcrypt.hash(password, 12)
 
@@ -32,7 +32,11 @@ export async function POST(request) {
 
 
 
-    return NextResponse.json(savedUser)
+    return NextResponse.json({
+        fullname: savedUser.fullname,
+        email: savedUser.email,
+        _id: savedUser._id
+    })
    } catch (error) {
     console.log(error);
     return NextResponse.error()
