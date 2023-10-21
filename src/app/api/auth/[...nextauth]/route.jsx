@@ -1,6 +1,9 @@
 import NextAuth from "next-auth";
 import GoogleProvider from 'next-auth/providers/google'
 import CredentialsProvider from "next-auth/providers/credentials";
+import conectarDB from "@/utils/conectarDB";
+import User from "@/models/User";
+import bcrypt from 'bcryptjs'
 
 const handler = NextAuth({
     providers: [
@@ -11,12 +14,17 @@ const handler = NextAuth({
                 password: { label: "Password", type: "password", placeholder: "Ingrese su password" }
             },
             async authorize(credentials, req) {
-                const user = { id: "1", fullname: "Jorge", email: "jorge08@gmail.com" }
-                if (user) {
-                    return user
-                } else {
-                    return null
-                }
+                await conectarDB()
+                console.log(credentials);
+
+                const userFound = await User.findOne({email: credentials?.email}).select("+password")
+                if(!userFound) throw new Error('Invalid credentials')
+
+                const passwordMatch = await bcrypt.compare(credentials.password, userFound.password)
+                if(!passwordMatch) throw new Error('Invalid credentials')
+
+                console.log(userFound);
+                return userFound
             }
         }),
 
@@ -24,7 +32,17 @@ const handler = NextAuth({
             clientId: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         }),
-    ]
+    ],
+    callbacks: {
+        jwt({account, token, user, profile, session}){
+            if(user) token.user = user;
+            return token;
+        },
+        session({session, token}){
+           session.user = token.user
+            return session
+        }
+    }
 })
 
 export { handler as GET, handler as POST }
