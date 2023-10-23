@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { signIn, signOut, useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation';
 import { FcGoogle } from 'react-icons/fc';
+import Link from 'next/link';
 
 const Login = () => {
 
@@ -48,69 +49,82 @@ const Login = () => {
     createUser()
   }
 
-  const signInGoogle = async ()=>{
-    await signIn('google', {callbackUrl: '/dashboard'})
+  const signInGoogle = async () => {
+    await signIn('google', { callbackUrl: '/dashboard' })
     // router.push('/dashboard')
   }
 
   return (
-    <div className='flex items-center justify-center gap-5 py-6 px-10 flex-col'>
-      <div className='shadow-md p-6 max-w-lg w-full'>
-        <form onSubmit={handleSubmitForm}>
+    <>
+      <div className='flex items-center justify-center gap-4 py-6 px-10 flex-col'>
+        <div className='shadow-md p-6 max-w-lg w-full'>
+          <form onSubmit={handleSubmitForm}>
 
-          <div className='mb-3 '>
-            <h1 className='text-2xl font-bold '>Inicie Sesion</h1>
+            <div className='mb-3 '>
+              <h1 className='text-2xl font-bold '>Inicie Sesion</h1>
 
-          </div>
-
-          <div className='mb-2'>
-            <div className='mb-1'>
-              <p>Email</p>
             </div>
-            <input
-              type="email"
-              placeholder="Ingrese su email"
-              className="input input-bordered w-full"
-              onChange={handleChangeForm}
-              name='email'
-              value={email}
-            />
-          </div>
 
-          <div className='mb-4'>
-            <div className='mb-1'>
-              <p>Password</p>
+            <div className='mb-4'>
+              <div className='mb-1'>
+                <p>Email</p>
+              </div>
+              <input
+                type="email"
+                placeholder="Ingrese su email"
+                className="input input-bordered w-full"
+                onChange={handleChangeForm}
+                name='email'
+                value={email}
+              />
             </div>
-            <input
-              type="password"
-              placeholder="Ingrese su password"
-              className="input input-bordered w-full"
-              onChange={handleChangeForm}
-              name='password'
-              value={password}
 
-            />
-          </div>
+            <div className='mb-4'>
+              <div className='mb-1'>
+                <div className='flex items-center gap-3 justify-between'>
+                  <p>Password</p>
+                  <Link className="text-sky-600 text-sm" href='#'>¿Has olvidado tu contraseña?</Link>
+                </div>
 
-          {error &&
-            <div className="alert alert-error mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-              <span>{error}</span>
+              </div>
+              <input
+                type="password"
+                placeholder="Ingrese su password"
+                className="input input-bordered w-full"
+                onChange={handleChangeForm}
+                name='password'
+                value={password}
+
+              />
             </div>
-          }
 
-          <div className='flex '>
-            <button type='submit' className="btn w-full text-[#fff] bg-sky-600 hover:bg-sky-600 ">Login</button>
-          </div>
+            {error &&
+              <div className="alert alert-error mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                <span>{error}</span>
+              </div>
+            }
 
-          <div className="divider text-xs my-6">OR</div>
+            <div className='flex '>
+              <button type='submit' className="btn w-full text-[#fff] bg-green-600 hover:bg-green-600 ">Login</button>
+            </div>
 
-          <div className={` mb-3`}>
-            <button onClick={()=> signInGoogle()} type='button' className="btn w-full text-[#000] bg-white hover:bg-white "><FcGoogle size={24} /> Ingresar con Google</button>
-          </div>
-        </form>
+            <div className="divider text-xs my-4">OR</div>
+
+            <div className={` mb-3`}>
+              <button onClick={() => signInGoogle()} type='button' className="btn w-full text-[#000] bg-white hover:bg-white "><FcGoogle size={24} /> Ingresar con Google</button>
+            </div>
+          </form>
+        </div>
+
+        <div className='shadow-md p-6 max-w-lg w-full text-center'>
+          <p>¿Nuevo en Team Ariztegui? <Link className="text-sky-600" href={'/register'}>Crea una cuenta</Link></p>
+        </div>
+
       </div>
-    </div>
+
+
+    </>
   )
 }
 

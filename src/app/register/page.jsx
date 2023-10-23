@@ -4,6 +4,7 @@ import { signIn, signOut, useSession } from 'next-auth/react'
 import { FcGoogle } from "react-icons/fc";
 import axios, { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 const Register = () => {
 
@@ -41,10 +42,10 @@ const Register = () => {
       })
       console.log(resAuth);
 
-      if(resAuth?.ok){
+      if (resAuth?.ok) {
         router.push('/dashboard')
         router.refresh()
-      } 
+      }
 
     } catch (error) {
       console.log(error);
@@ -63,71 +64,77 @@ const Register = () => {
 
 
   return (
-    <div className='flex items-center justify-center gap-5 py-6 px-10 flex-col'>
-      <div className='shadow-md p-6 max-w-lg w-full'>
-        <form onSubmit={handleSubmitForm}>
+    <>
+      <div className='flex items-center justify-center gap-4 py-6 px-10 flex-col'>
+        <div className='shadow-md p-6 max-w-lg w-full'>
+          <form onSubmit={handleSubmitForm}>
 
-          <div className='mb-3 '>
-            <h1 className='text-2xl font-bold '>Registrate</h1>
+            <div className='mb-3 '>
+              <h1 className='text-2xl font-bold '>Registrate</h1>
 
-          </div>
-
-          <div className='mb-2'>
-            <div className='mb-1'>
-              <p>name</p>
             </div>
-            <input
-              type="text"
-              placeholder="Ingrese su name"
-              className="input input-bordered w-full"
-              onChange={handleChangeForm}
-              name='name'
-              value={name}
-            />
-          </div>
 
-          <div className='mb-2'>
-            <div className='mb-1'>
-              <p>Email</p>
+            <div className='mb-2'>
+              <div className='mb-1'>
+                <p>name</p>
+              </div>
+              <input
+                type="text"
+                placeholder="Ingrese su name"
+                className="input input-bordered w-full"
+                onChange={handleChangeForm}
+                name='name'
+                value={name}
+              />
             </div>
-            <input
-              type="email"
-              placeholder="Ingrese su email"
-              className="input input-bordered w-full"
-              onChange={handleChangeForm}
-              name='email'
-              value={email}
-            />
-          </div>
 
-          <div className='mb-6'>
-            <div className='mb-1'>
-              <p>Password</p>
+            <div className='mb-2'>
+              <div className='mb-1'>
+                <p>Email</p>
+              </div>
+              <input
+                type="email"
+                placeholder="Ingrese su email"
+                className="input input-bordered w-full"
+                onChange={handleChangeForm}
+                name='email'
+                value={email}
+              />
             </div>
-            <input
-              type="password"
-              placeholder="Ingrese su password"
-              className="input input-bordered w-full"
-              onChange={handleChangeForm}
-              name='password'
-              value={password}
 
-            />
-          </div>
+            <div className='mb-6'>
+              <div className='mb-1'>
+                <p>Password</p>
+              </div>
+              <input
+                type="password"
+                placeholder="Ingrese su password"
+                className="input input-bordered w-full"
+                onChange={handleChangeForm}
+                name='password'
+                value={password}
 
-          {error &&
-            <div className="alert alert-error mb-6">
-              <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-              <span>{error}</span>
+              />
             </div>
-          }
 
-          <div className='flex '>
-            <button type='submit' className="btn w-full text-[#fff] bg-sky-600 hover:bg-sky-600 ">Registrar</button>
+            {error &&
+              <div className="alert alert-error mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                <span>{error}</span>
+              </div>
+            }
+
+            <div className='flex '>
+              <button type='submit' className="btn w-full text-[#fff] bg-sky-600 hover:bg-sky-600 ">Registrar</button>
+            </div>
+          </form>
+        </div>
+
+        <div className='shadow-md p-6 max-w-lg w-full text-center'>
+            <p>¿Ya tienes cuenta? <Link className="text-green-600" href={'/login'}>Inicia sesion</Link></p>
           </div>
-        </form>
       </div>
-    </div>
+    </>
   )
 }
 
