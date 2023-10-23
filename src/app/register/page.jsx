@@ -5,6 +5,7 @@ import { FcGoogle } from "react-icons/fc";
 import axios, { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { Toaster, toast } from 'sonner';
 
 const Register = () => {
 
@@ -33,7 +34,7 @@ const Register = () => {
           'Content-Type': 'application/json'
         }
       });
-      console.log(res);
+      console.log('register', res);
 
       const resAuth = await signIn('credentials', {
         email: res.data.email,
@@ -43,6 +44,7 @@ const Register = () => {
       console.log(resAuth);
 
       if (resAuth?.ok) {
+        registerSuccess()
         router.push('/dashboard')
         router.refresh()
       }
@@ -60,6 +62,10 @@ const Register = () => {
     e.preventDefault()
     console.log(formulario);
     createUser()
+  }
+
+  const registerSuccess = () => {
+    toast.success('Te registraste correctamente')
   }
 
 
@@ -131,8 +137,13 @@ const Register = () => {
         </div>
 
         <div className='shadow-md p-6 max-w-lg w-full text-center'>
-            <p>¿Ya tienes cuenta? <Link className="text-green-600" href={'/login'}>Inicia sesion</Link></p>
-          </div>
+          <p>¿Ya tienes cuenta? <Link className="text-green-600" href={'/login'}>Inicia sesion</Link></p>
+        </div>
+
+          <Toaster
+            position="top-center"
+          />
+          {/* <button onClick={() => toast.success('My success toast')}>Give me a toast</button> */}
       </div>
     </>
   )

@@ -5,7 +5,7 @@ const Home = () => {
     <div className=' gap-5 py-6 px-10 w-full'>
       <div className='w-full m-auto'>
         <div className='mb-3 w-full text-center'>
-          <h1 className='text-2xl font-bold '>Bienvenidos al Team Aritegui</h1>
+          <h1 className='text-2xl font-bold '>Bienvenidos al Team Ariztegui</h1>
         </div>
       </div>
     </div>
