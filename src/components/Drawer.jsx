@@ -2,15 +2,19 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
+import { FaPeopleGroup } from "react-icons/fa6";
 import { AiFillHome } from "react-icons/ai";
 import { MdEmail } from "react-icons/md";
 import { IoMdContact } from "react-icons/io";
+import { TbLogout2 } from "react-icons/tb";
+import { TbLogout } from "react-icons/tb";
 import { signIn, signOut, useSession } from 'next-auth/react'
 
 
 
 const Drawer = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  // const [nameAvatar, setNameAvatar] = useState('')
 
   const handleClick = () => {
     if (drawerOpen) {
@@ -19,7 +23,7 @@ const Drawer = () => {
   };
 
   const { data: session } = useSession()
-  // console.log(session);
+
 
   return (
     <div>
@@ -53,80 +57,111 @@ const Drawer = () => {
             </div>
             <div className=" px-2 mx-2">
               <Link href="/" className="font-bold">
-                <div className="flex items-center gap-2">
-                  <FcGoogle size={30} />
+                <div className="flex items-center gap-3">
+                  <FaPeopleGroup size={40} />
                   <p>Turnos</p>
                 </div>
               </Link>
             </div>
 
             <div className="flex-none hidden lg:block">
-              <ul className="menu menu-horizontal p-0 flex gap-1 items-center">
-                {session?.user ?
-                  <>
-                    <li>
-                      <Link href="/dashboard">Dashboard</Link>
-                    </li>
-                    {/* <li>
-                    <p>{session.user.name}</p>
-                  </li> */}
-                    <li>
-                      <div className="avatar">
-                        <div className="w-10 rounded-full">
-                          <img src={session.user.image} />
-                        </div>
-                      </div>
-                    </li>
-                    <li className="font-semibold">
-                      <Link onClick={() => { signOut({callbackUrl: "/"}) }} href="#">Sign Out</Link>
-                    </li>
-                  </>
-                  :
-                  ''
+              <div className=" flex items-center gap-10">
+                <ul className="menu menu-horizontal p-0 flex gap-1 items-center">
+                  {session?.user ?
+                    <>
+                      <li className="font-semibold">
+                        <Link href="/dashboard">Perfil</Link>
+                      </li>
+                      <li className="font-semibold">
+                        <Link href="/about">About</Link>
+                      </li>
+                      {/* <li className="font-semibold">
+                        <Link onClick={() => { signOut({ callbackUrl: "/" }) }} href="#">Cerrar sesion</Link>
+                      </li> */}
+                    </>
+                    :
+                    <>
+                      <li className="font-semibold">
+                        <Link href="/login">Ingresar</Link>
+                      </li>
+                      <li className="font-semibold">
+                        <Link href="/register">Registrar</Link>
+                      </li>
+                    </>
+                  }
 
-                  // <li className="font-semibold">
-                  //   <Link onClick={() => { signIn() }} href="/dashboard">Sign In</Link>
-                  // </li>
+                  {/* <li className="font-semibold">
+                    <Link onClick={() => { signIn() }} href="/dashboard">Sign In</Link>
+                  </li>  */}
+                </ul>
+
+                {session?.user &&
+                  <div className="avatar online placeholder dropdown dropdown-hover ">
+                    <div tabIndex={0} className="bg-neutral-focus text-neutral-content rounded-full w-10 cursor-pointer mb-1">
+                      <span className="text-xl">{session?.user?.name.charAt(0).toUpperCase()}</span>
+                    </div>
+                    <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                      <li >
+                        <Link onClick={() => { signOut({ callbackUrl: "/" }) }} href="#">Cerrar sesion</Link>
+                      </li>
+                    </ul>
+                  </div>
                 }
-              </ul>
+
+              </div>
             </div>
           </div>
         </div>
         <div className="drawer-side z-10">
           <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
           <ul className="menu p-4 w-80 h-full bg-base-200">
-            <li>
-              <Link onClick={handleClick} href="/dashboard">
-                <div className="flex items-center gap-2">
-                  <AiFillHome size={25} />
-                  <p>Dashboard</p>
-                </div>
-              </Link>
-            </li>
-            {/* <li className="font-semibold">
-              <Link onClick={() => { signIn(); handleClick(); }} href="#">
-                <div className="flex items-center gap-2">
-                  <AiFillHome size={25} />
-                  <p>Sign In</p>
-                </div>
-              </Link>
-            </li> */}
-            {/* <li>
-              <Link onClick={handleClick} href="/about">
-                <div className="flex items-center gap-2">
-                  <IoMdContact size={25} />
-                  <p>About</p>
-                </div>
-              </Link>
-            </li>
-            <li>
-              <Link onClick={handleClick} href="/contact">
-                <div className="flex items-center gap-2">
-                  <MdEmail size={25} />
-                  <p>Contact</p>
-                </div>
-              </Link>
-            </li> */}
+            {session?.user ?
+              <>
+                <li>
+                  <Link onClick={handleClick} href="/dashboard">
+                    <div className="flex items-center gap-2">
+                      <IoMdContact size={25} />
+                      <p>Perfil</p>
+                    </div>
+                  </Link>
+                </li>
+                <li>
+                  <Link onClick={handleClick} href="/about">
+                    <div className="flex items-center gap-2">
+                      <AiFillHome size={25} />
+                      <p>About</p>
+                    </div>
+                  </Link>
+                </li>
+                <li>
+                  <Link onClick={() => { signOut({ callbackUrl: "/" }) }} href="#">
+                    <div className="flex items-center gap-2">
+                      <TbLogout2 size={25} />
+                      <p>Cerrar sesion</p>
+                    </div>
+                  </Link>
+                </li>
+              </>
+              :
+              <>
+                <li>
+                  <Link onClick={handleClick} href="/login">
+                    <div className="flex items-center gap-2">
+                      <TbLogout size={25} />
+                      <p>Ingresar</p>
+                    </div>
+                  </Link>
+                </li>
+                <li>
+                  <Link onClick={handleClick} href="/register">
+                    <div className="flex items-center gap-2">
+                      <MdEmail size={25} />
+                      <p>Registrar</p>
+                    </div>
+                  </Link>
+                </li>
+              </>
+            }
           </ul>
         </div>
       </div>

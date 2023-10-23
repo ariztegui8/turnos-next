@@ -31,8 +31,10 @@ const handler = NextAuth({
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+            // redirectUri: '/dashboard',
         }),
     ],
+
     callbacks: {
         jwt({account, token, user, profile, session}){
             if(user) token.user = user;
@@ -42,6 +44,9 @@ const handler = NextAuth({
            session.user = token.user
             return session
         }
+    },
+    pages: {
+        signIn: '/login',
     }
 })
 

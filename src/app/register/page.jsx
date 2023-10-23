@@ -3,18 +3,20 @@ import React, { useState } from 'react'
 import { signIn, signOut, useSession } from 'next-auth/react'
 import { FcGoogle } from "react-icons/fc";
 import axios, { AxiosError } from 'axios';
+import { useRouter } from 'next/navigation';
 
 const Register = () => {
 
   const [formulario, setFormulario] = useState({
-    fullname: '',
+    name: '',
     email: '',
     password: '',
   })
   const [error, setError] = useState()
 
 
-  const { fullname, email, password, } = formulario
+  const router = useRouter()
+  const { name, email, password, } = formulario
 
   const handleChangeForm = e => {
     setFormulario({
@@ -31,10 +33,18 @@ const Register = () => {
         }
       });
       console.log(res);
-      // if (res.status === 200) {
-      //   router.push('/task/form')
-      //   router.refresh()
-      // }
+
+      const resAuth = await signIn('credentials', {
+        email: res.data.email,
+        password: password,
+        redirect: false
+      })
+      console.log(resAuth);
+
+      if(resAuth?.ok){
+        router.push('/dashboard')
+        router.refresh()
+      } 
 
     } catch (error) {
       console.log(error);
@@ -58,21 +68,21 @@ const Register = () => {
         <form onSubmit={handleSubmitForm}>
 
           <div className='mb-3 '>
-            <h1 className='text-2xl font-bold '>Register</h1>
+            <h1 className='text-2xl font-bold '>Registrate</h1>
 
           </div>
 
           <div className='mb-2'>
             <div className='mb-1'>
-              <p>Fullname</p>
+              <p>name</p>
             </div>
             <input
               type="text"
-              placeholder="Ingrese su fullname"
+              placeholder="Ingrese su name"
               className="input input-bordered w-full"
               onChange={handleChangeForm}
-              name='fullname'
-              value={fullname}
+              name='name'
+              value={name}
             />
           </div>
 

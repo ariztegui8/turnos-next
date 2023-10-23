@@ -4,8 +4,8 @@ import { NextResponse } from "next/server";
 import bcrypt from 'bcryptjs'
 
 export async function POST(request) {
-    const { fullname, email, password } = await request.json()
-    console.log(fullname, email, password);
+    const { name, email, password } = await request.json()
+    console.log(name, email, password);
     if (!password || password.length < 6)
         return NextResponse.json({
             message: "El password debe ser mayor a 6 caracteres"
@@ -24,7 +24,7 @@ export async function POST(request) {
 
     const user = new User({
         email,
-        fullname,
+        name,
         password: hashedPassword
     })
     const savedUser = await user.save()
@@ -33,7 +33,7 @@ export async function POST(request) {
 
 
     return NextResponse.json({
-        fullname: savedUser.fullname,
+        name: savedUser.name,
         email: savedUser.email,
         _id: savedUser._id
     })
