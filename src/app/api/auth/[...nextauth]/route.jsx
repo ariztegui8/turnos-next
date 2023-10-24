@@ -10,12 +10,12 @@ const handler = NextAuth({
         CredentialsProvider({
             name: "Credentials",
             credentials: {
-                email: { label: "Email", type: "email", placeholder: "Ingrese su Nombre" },
+                email: { label: "Email", type: "email", placeholder: "Ingrese su email" },
                 password: { label: "Password", type: "password", placeholder: "Ingrese su password" }
             },
             async authorize(credentials, req) {
                 await conectarDB()
-                console.log(credentials);
+                console.log('credentials', credentials);
 
                 const userFound = await User.findOne({email: credentials?.email}).select("+password")
                 if(!userFound) throw new Error('Invalid credentials')
@@ -23,7 +23,7 @@ const handler = NextAuth({
                 const passwordMatch = await bcrypt.compare(credentials.password, userFound.password)
                 if(!passwordMatch) throw new Error('Invalid credentials')
 
-                console.log(userFound);
+                console.log('userFound', userFound);
                 return userFound
             }
         }),
