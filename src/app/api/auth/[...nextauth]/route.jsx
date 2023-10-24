@@ -44,6 +44,14 @@ const handler = NextAuth({
            session.user = token.user
             return session
         }
+        // jwt({token, user}){
+        //     return{ ...token, ...user}
+        // },
+        // session({session, token, user}){
+        //     session.user = token
+        //     return session
+        // }
+
     },
     pages: {
         signIn: '/login',

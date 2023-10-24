@@ -19,7 +19,7 @@ const Dashboard = () => {
               <h1 className='text-2xl font-bold '>Hola {session?.user?.name}!</h1>
             </div>
 
-            <pre>{JSON.stringify({ session, status }, null, 2)}</pre>
+            <pre className="overflow-x-auto">{JSON.stringify({ session, status }, null, 2)}</pre>
           </>
         }
 
