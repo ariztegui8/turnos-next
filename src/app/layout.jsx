@@ -4,8 +4,8 @@ import './globals.css'
 import Providers from "./Providers"
 
 export const metadata = {
-  title: 'Next Auth Google',
-  description: 'Next Auth Google',
+  title: 'Turnos',
+  description: 'Turnos',
 }
 
 export default function RootLayout({ children }) {
