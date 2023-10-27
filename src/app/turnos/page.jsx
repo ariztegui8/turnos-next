@@ -49,7 +49,7 @@ const Turnos = () => {
       fecha: startDate,
       hora: horarios
     });
-  }, [btnRadio, horarios, startDate]);
+  }, [btnRadio, startDate, horarios]);
 
   const funRadio = (ra) => {
     setBtnRadio(ra)
@@ -68,15 +68,19 @@ const Turnos = () => {
 
   const submitDataForm = e => {
     setDateTurnos(form)
-    router.push('/turno')
+    router.push('/confirmed-shift')
   }
 
+  useEffect(() => {
+    const formTurno = JSON.stringify(form);
+    localStorage.setItem('form', formTurno);
+  }, [form]);
 
 
   return (
     <div className='flex items-center justify-center gap-5 py-6 px-10 flex-col'>
 
-      {session &&
+      
         <div className='shadow-md p-6 max-w-lg w-full'>
           <div className='mb-6'>
             <h1 className='text-2xl font-bold'>Solicitar turno online</h1>
@@ -200,15 +204,15 @@ const Turnos = () => {
 
         </div>
 
-      }
-
-      {session ?
+      {/* {session ?
         ''
         :
         <div className='shadow-md p-6 max-w-lg w-full'>
           <SignIn />
         </div>
-      }
+      } */}
+
+      {/* <pre>{JSON.stringify({form}, null, 2)}</pre> */}
     </div>
   )
 }

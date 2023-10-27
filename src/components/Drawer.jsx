@@ -8,6 +8,7 @@ import { MdEmail } from "react-icons/md";
 import { IoMdContact } from "react-icons/io";
 import { TbLogout2 } from "react-icons/tb";
 import { TbLogout } from "react-icons/tb";
+import { AiFillClockCircle } from "react-icons/ai";
 import { signIn, signOut, useSession } from 'next-auth/react'
 
 
@@ -75,6 +76,9 @@ const Drawer = () => {
                       <li className="font-semibold">
                         <Link href="/about">About</Link>
                       </li>
+                      <li className="font-semibold">
+                        <Link href="/turnos">Turnos</Link>
+                      </li>
                       {/* <li className="font-semibold">
                         <Link onClick={() => { signOut({ callbackUrl: "/" }) }} href="#">Cerrar sesion</Link>
                       </li> */}
@@ -130,6 +134,14 @@ const Drawer = () => {
                     <div className="flex items-center gap-2">
                       <AiFillHome size={25} />
                       <p>About</p>
+                    </div>
+                  </Link>
+                </li>
+                <li>
+                  <Link onClick={handleClick} href="/turnos">
+                    <div className="flex items-center gap-2">
+                      <AiFillClockCircle size={25} />
+                      <p>Turnos</p>
                     </div>
                   </Link>
                 </li>
