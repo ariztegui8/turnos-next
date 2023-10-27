@@ -10,9 +10,10 @@ async function loadShift() {
 }
 
 const FormShift = async () => {
-    const shift = await loadShift()
-    return (
 
+    const shift = await loadShift()
+
+    return (
         <div className='grid grid-cols-3 gap-4 my-6 mx-10'>
             {shift.map(turno => (
                 <Link href={`/shift/${turno._id}`}>
@@ -24,7 +25,6 @@ const FormShift = async () => {
                 </Link>
             ))}
         </div>
-
     )
 }
 

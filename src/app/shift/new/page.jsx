@@ -1,19 +1,22 @@
 'use client'
 import { useParams, useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
+import { useSession } from 'next-auth/react'
 
 const FormShiftNew = () => {
 
     const router = useRouter();
     const params = useParams()
+    const { data: session, status } = useSession()
 
     const [formulario, setFormulario] = useState({
         fecha: '',
         hora: '',
-        profesional: ''
+        profesional: '',
+        usuarioId: ''
     })
 
-    const { fecha, hora, profesional } = formulario
+    const { fecha, hora, profesional, usuarioId } = formulario
 
     const handleChangeForm = e => {
         setFormulario({
@@ -25,10 +28,21 @@ const FormShiftNew = () => {
     const getShift = async () => {
         const res = await fetch(`/api/shifts/${params.id}`)
         const data = await res.json()
+        let usuarioId;
+
+        if (status === 'authenticated') {
+            if (session.user.id) {
+                usuarioId = session.user.id;
+            } else if (session.user._id) {
+                usuarioId = session.user._id;
+            }
+        }
+    
         setFormulario({
             fecha: data.shiftFound.fecha,
             hora: data.shiftFound.hora,
-            profesional: data.shiftFound.profesional
+            profesional: data.shiftFound.profesional,
+            usuarioId: usuarioId || '' 
         })
     }
 
@@ -104,6 +118,22 @@ const FormShiftNew = () => {
             getShift()
         }
     }, [])
+    
+    useEffect(() => {
+        if (status === 'authenticated') {
+            if (session.user.id) {
+                setFormulario({
+                    ...formulario,
+                    usuarioId: session.user.id
+                });
+            } else if (session.user._id) {
+                setFormulario({
+                    ...formulario,
+                    usuarioId: session.user._id
+                });
+            }
+        }
+    }, [status, session]);
 
 
     return (
@@ -164,12 +194,18 @@ const FormShiftNew = () => {
                         />
                     </div>
 
+                    <input
+                        type="hidden"
+                        name='usuarioId'
+                        value={usuarioId}
+                    />
 
                     <div className='flex '>
                         <button type='submit' className="btn w-full text-[#fff] bg-sky-600 hover:bg-sky-600 ">{!params.id ? 'Crear' : 'Editar'}</button>
                     </div>
                 </form>
             </div>
+            <pre>{JSON.stringify(formulario, null,2)}</pre>
         </div>
     )
 }

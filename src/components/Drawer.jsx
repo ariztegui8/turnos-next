@@ -73,6 +73,9 @@ const Drawer = () => {
                       <li className="font-semibold">
                         <Link href="/dashboard">Perfil</Link>
                       </li>
+                      {/* <li className="font-semibold">
+                        <Link href="/about">About</Link>
+                      </li> */}
                       <li className="font-semibold">
                         <Link href="/about">About</Link>
                       </li>
