@@ -8,7 +8,7 @@ export async function GET(request, { params }) {
         const shiftFound = await Shift.findById(params.id)
         if (!shiftFound)
             return NextResponse.json({
-                message: "Task not found",
+                message: "Shift not found",
             }, {
                 status: 404
             }
@@ -40,7 +40,7 @@ export async function DELETE(request, { params }) {
         const shiftDeleted = await Shift.findByIdAndDelete(params.id)
         if (!shiftDeleted)
             return NextResponse.json({
-                message: 'Task not found',
+                message: 'Shift not found',
             }, {
                 status: 404
             })

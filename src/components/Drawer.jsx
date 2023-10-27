@@ -77,7 +77,7 @@ const Drawer = () => {
                         <Link href="/about">About</Link>
                       </li>
                       <li className="font-semibold">
-                        <Link href="/turnos">Turnos</Link>
+                        <Link href="/shift/new">Turnos</Link>
                       </li>
                       {/* <li className="font-semibold">
                         <Link onClick={() => { signOut({ callbackUrl: "/" }) }} href="#">Cerrar sesion</Link>
@@ -138,7 +138,7 @@ const Drawer = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link onClick={handleClick} href="/turnos">
+                  <Link onClick={handleClick} href="/shift/new">
                     <div className="flex items-center gap-2">
                       <AiFillClockCircle size={25} />
                       <p>Turnos</p>

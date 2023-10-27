@@ -17,6 +17,9 @@ const shiftSchema = new Schema({
         // required: [true, 'La descripcion es requerida'],
         trim: true,
     },
+    usuarioId: {
+        type: String,
+    },
     
 },{
     timestamps: true,

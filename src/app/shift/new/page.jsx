@@ -13,7 +13,7 @@ const FormShiftNew = () => {
         profesional: ''
     })
 
-    const { fecha, hora, profesional} = formulario
+    const { fecha, hora, profesional } = formulario
 
     const handleChangeForm = e => {
         setFormulario({
@@ -113,10 +113,14 @@ const FormShiftNew = () => {
 
                     <div className='mb-3 flex items-center justify-between gap-2'>
                         <h1 className='text-2xl font-bold '>{!params.id ? 'Crear turno' : 'Editar turno'}</h1>
-                        <div className='flex items-center gap-2'>
-                            {/* <button type='button' onClick={handleEdit} className="btn btn-outline btn-warning btn-sm">Editar</button> */}
-                            <button type='button' onClick={handleDelete} className="btn btn-outline btn-error btn-sm">Eliminar</button>
-                        </div>
+                        {!params.id ?
+                            ''
+                            :
+                            <div className='flex items-center gap-2'>
+                                {/* <button type='button' onClick={handleEdit} className="btn btn-outline btn-warning btn-sm">Editar</button> */}
+                                <button type='button' onClick={handleDelete} className="btn btn-outline btn-error btn-sm">Eliminar</button>
+                            </div>
+                        }
                     </div>
                     <div className='mb-2'>
                         <div className='mb-1'>
