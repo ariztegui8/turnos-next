@@ -12,7 +12,7 @@ const conectarDB = async () => {
 
         const url = `${connection.connection.host}:${connection.connection.port}`;
         console.log(`MomgoDB Conectado en: ${url}`);
-        console.log('nombre base de datos: ',connection.connection.db.databaseName);
+        // console.log('nombre base de datos: ',connection.connection.db.databaseName);
     } catch (error) {
         console.log(`error: ${error.message}`);
         process.exit(1)

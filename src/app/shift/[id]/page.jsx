@@ -1,3 +1,3 @@
-import FormShiftId from '../new/page'
+import FormShiftId from '../form/page'
 
 export default FormShiftId
