@@ -131,9 +131,9 @@ const Drawer = () => {
                         <li>
                           <Link href="/register"><ImUser /> Clientes</Link>
                         </li>
-                        <li>
+                        {/* <li>
                           <Link href="/register"><MdApartment /> Profesionales</Link>
-                        </li>
+                        </li> */}
                       </ul>
                       {/* } */}
                     </div>
