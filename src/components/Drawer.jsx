@@ -9,12 +9,16 @@ import { IoMdContact } from "react-icons/io";
 import { TbLogout2 } from "react-icons/tb";
 import { TbLogout } from "react-icons/tb";
 import { AiFillClockCircle } from "react-icons/ai";
+import { IoIosArrowDown } from "react-icons/io";
+import { ImUser } from "react-icons/im";
+import { MdApartment } from "react-icons/md";
 import { signIn, signOut, useSession } from 'next-auth/react'
 
 
 
 const Drawer = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   // const [nameAvatar, setNameAvatar] = useState('')
 
   const handleClick = () => {
@@ -22,6 +26,11 @@ const Drawer = () => {
       setDrawerOpen(false);
     }
   };
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
 
   const { data: session } = useSession()
 
@@ -58,7 +67,7 @@ const Drawer = () => {
             </div>
             <div className=" px-2 mx-2">
               <Link href="/" className="font-bold">
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 hover:text-zinc-500">
                   <FaPeopleGroup size={40} />
                   <p>Turnos</p>
                 </div>
@@ -66,56 +75,75 @@ const Drawer = () => {
             </div>
 
             <div className="flex-none hidden lg:block">
-              <div className=" flex items-center gap-10">
-                <ul className="menu menu-horizontal p-0 flex gap-1 items-center">
-                  {session?.user ?
-                    <>
-                      <li className="font-semibold">
-                        <Link href="/dashboard">Perfil</Link>
-                      </li>
-                      {/* <li className="font-semibold">
-                        <Link href="/about">About</Link>
-                      </li> */}
-                      <li className="font-semibold">
-                        <Link href="/about">About</Link>
-                      </li>
-                      <li className="font-semibold">
-                        <Link href="/shift/form">Turnos</Link>
-                      </li>
-                      {/* <li className="font-semibold">
+
+              {session?.user ?
+                <>
+                  <div className=" flex items-center gap-10">
+                    <div className="font-semibold">
+                      <Link className="hover:text-zinc-500" href="/dashboard">Perfil</Link>
+                    </div>
+
+                    <div className="font-semibold">
+                      <Link className="hover:text-zinc-500" href="/about">About</Link>
+                    </div>
+
+                    <div className="font-semibold">
+                      <Link className="hover:text-zinc-500" href="/shift/form">Turnos</Link>
+                    </div>
+
+                    <div className="avatar online placeholder dropdown dropdown-hover ">
+                      <div tabIndex={0} className="bg-orange-600 text-white rounded-full w-9 cursor-pointer mb-1">
+                        <span className="text-lg">{session?.user?.name.charAt(0).toUpperCase()}</span>
+                      </div>
+                      <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                        <li >
+                          <Link onClick={() => { signOut({ callbackUrl: "/" }) }} href="#">Cerrar sesion</Link>
+                        </li>
+                      </ul>
+                    </div>
+
+                    {/* <li className="font-semibold">
                         <Link onClick={() => { signOut({ callbackUrl: "/" }) }} href="#">Cerrar sesion</Link>
                       </li> */}
-                    </>
-                    :
-                    <>
-                      <li className="font-semibold">
-                        <Link href="/login">Ingresar</Link>
-                      </li>
-                      <li className="font-semibold">
-                        <Link href="/register">Registrar</Link>
-                      </li>
-                    </>
-                  }
+                  </div>
+                </>
+                :
+                <>
+                  <div className=" flex items-center gap-4">
+                    <div className=" dropdown">
+                      <button tabIndex={0} className="btn btn-success capitalize text-white h-10 min-h-8">Ingresar <IoIosArrowDown /></button>
+                      {/* {menuOpen && */}
+                      <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 mt-1">
+                        <li>
+                          <Link href="/login"><ImUser /> Clientes</Link>
+                        </li>
+                        <li>
+                          <Link href="/login"><MdApartment /> Profesionales</Link>
+                        </li>
+                      </ul>
+                      {/* } */}
+                    </div>
 
-                  {/* <li className="font-semibold">
+                    <div className=" dropdown">
+                      <button tabIndex={0} className="btn btn-info  capitalize text-white h-10 min-h-8">Registrar <IoIosArrowDown /></button>
+                      {/* {menuOpen && */}
+                      <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 mt-1">
+                        <li>
+                          <Link href="/register"><ImUser /> Clientes</Link>
+                        </li>
+                        <li>
+                          <Link href="/register"><MdApartment /> Profesionales</Link>
+                        </li>
+                      </ul>
+                      {/* } */}
+                    </div>
+                  </div>
+                </>
+              }
+
+              {/* <li className="font-semibold">
                     <Link onClick={() => { signIn() }} href="/dashboard">Sign In</Link>
                   </li>  */}
-                </ul>
-
-                {session?.user &&
-                  <div className="avatar online placeholder dropdown dropdown-hover ">
-                    <div tabIndex={0} className="bg-neutral-focus text-neutral-content rounded-full w-10 cursor-pointer mb-1">
-                      <span className="text-xl">{session?.user?.name.charAt(0).toUpperCase()}</span>
-                    </div>
-                    <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-                      <li >
-                        <Link onClick={() => { signOut({ callbackUrl: "/" }) }} href="#">Cerrar sesion</Link>
-                      </li>
-                    </ul>
-                  </div>
-                }
-
-              </div>
             </div>
           </div>
         </div>
