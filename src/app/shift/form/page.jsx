@@ -99,7 +99,7 @@ const FormShiftNew = () => {
                 usuarioId = session.user._id;
             }
         }
-    
+
         setFormulario({
             fecha: data.shiftFound.fecha,
             hora: data.shiftFound.hora,
@@ -113,7 +113,7 @@ const FormShiftNew = () => {
             getShift()
         }
     }, [])
-    
+
     useEffect(() => {
         if (status === 'authenticated') {
             if (session.user.id) {
