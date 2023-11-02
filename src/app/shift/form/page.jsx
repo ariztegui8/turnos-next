@@ -1,3 +1,17 @@
+
+import conectarDB from '@/utils/conectarDB'
+import Link from 'next/link'
+import Shift from '@/models/Shift'
+
+async function loadShift() {
+    conectarDB()
+    const shift = await Shift.find()
+    return shift
+}
+
+const FormShift = async () => {
+
+    const shift = await loadShift()
 'use client'
 import { useParams, useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
@@ -132,77 +146,18 @@ const FormShiftNew = () => {
 
 
     return (
-        <div className='flex items-center justify-center gap-5 py-6 px-10 flex-col'>
-            <div className='shadow-md p-6 max-w-lg w-full'>
-                <form onSubmit={handleSubmitForm}>
-
-                    <div className='mb-3 flex items-center justify-between gap-2'>
-                        <h1 className='text-2xl font-bold '>{!params.id ? 'Crear turno' : 'Editar turno'}</h1>
-                        {!params.id ?
-                            ''
-                            :
-                            <div className='flex items-center gap-2'>
-                                {/* <button type='button' onClick={handleEdit} className="btn btn-outline btn-warning btn-sm">Editar</button> */}
-                                <button type='button' onClick={handleDelete} className="btn btn-outline btn-error btn-sm">Eliminar</button>
-                            </div>
-                        }
+        <div className='grid grid-cols-3 gap-4 my-6 mx-10'>
+            {shift.map(turno => (
+                <Link href={`/shift/${turno._id}`}>
+                    <div className=' shadow-md p-6 max-w-lg w-full cursor-pointer hover:bg-slate-300' key={turno._id}>
+                        <p className='mb-2 text-lg font-medium'>Fecha: {turno.fecha}</p>
+                        <p className='mb-2 text-lg font-medium'>Hora: {turno.hora}</p>
+                        <p className='mb-2 text-lg font-medium'>Profesional: {turno.profesional}</p>
                     </div>
-                    <div className='mb-2'>
-                        <div className='mb-1'>
-                            <p>Fecha</p>
-                        </div>
-                        <input
-                            type="text"
-                            placeholder="Ingrese su Title"
-                            className="input input-bordered w-full"
-                            onChange={handleChangeForm}
-                            name='fecha'
-                            value={fecha}
-                        />
-                    </div>
-
-                    <div className='mb-2'>
-                        <div className='mb-1'>
-                            <p>Hora</p>
-                        </div>
-                        <input
-                            type="text"
-                            className="input input-bordered w-full"
-                            placeholder="Ingrese su Description"
-                            onChange={handleChangeForm}
-                            name='hora'
-                            value={hora}
-                        />
-                    </div>
-
-                    <div className='mb-2'>
-                        <div className='mb-1'>
-                            <p>Profesional</p>
-                        </div>
-                        <input
-                            type="text"
-                            className="input input-bordered w-full"
-                            placeholder="Ingrese su Description"
-                            onChange={handleChangeForm}
-                            name='profesional'
-                            value={profesional}
-                        />
-                    </div>
-
-                    <input
-                        type="hidden"
-                        name='usuarioId'
-                        value={usuarioId}
-                    />
-
-                    <div className='flex '>
-                        <button type='submit' className="btn w-full text-[#fff] bg-sky-600 hover:bg-sky-600 ">{!params.id ? 'Crear' : 'Editar'}</button>
-                    </div>
-                </form>
-            </div>
-            <pre>{JSON.stringify(formulario, null,2)}</pre>
+                </Link>
+            ))}
         </div>
     )
 }
 
-export default FormShiftNew
+export default FormShift
