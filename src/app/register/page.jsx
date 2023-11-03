@@ -36,18 +36,24 @@ const Register = () => {
       });
       console.log('register', res);
 
-      const resAuth = await signIn('credentials', {
-        email: res.data.email,
-        password: password,
-        redirect: false
-      })
-      console.log(resAuth);
-
-      if (resAuth?.ok) {
+       if (res?.status == 200) {
         registerSuccess()
-        router.push('/dashboard')
+        router.push('/login')
         router.refresh()
       }
+
+      // const resAuth = await signIn('credentials', {
+      //   email: res.data.email,
+      //   password: password,
+      //   redirect: false
+      // })
+      // console.log('resAuth',resAuth);
+
+      // if (resAuth?.ok) {
+      //   registerSuccess()
+      //   router.push('/dashboard')
+      //   router.refresh()
+      // }
 
     } catch (error) {
       console.log(error);
