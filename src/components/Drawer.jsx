@@ -32,7 +32,8 @@ const Drawer = () => {
   };
 
 
-  const { data: session } = useSession()
+  const { data: session , status} = useSession()
+  console.log('session', session);
 
 
   return (

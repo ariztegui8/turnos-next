@@ -101,9 +101,9 @@ const FormShiftNew = () => {
         }
 
         setFormulario({
-            fecha: data.shiftFound.fecha,
-            hora: data.shiftFound.hora,
-            profesional: data.shiftFound.profesional,
+            fecha: data?.shiftFound?.fecha,
+            hora: data?.shiftFound?.hora,
+            profesional: data?.shiftFound?.profesional,
             usuarioId: usuarioId || '' 
         })
     }

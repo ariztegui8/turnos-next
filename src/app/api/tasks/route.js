@@ -3,7 +3,7 @@ import conectarDB from "@/utils/conectarDB";
 import { NextResponse } from "next/server";
 
 export async function GET(){
-    conectarDB()
+    await conectarDB()
     const tasks = await Task.find()
     return NextResponse.json({tasks})
 }

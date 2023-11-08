@@ -4,7 +4,7 @@ import Task from '@/models/Task'
 import Link from 'next/link'
 
 async function loadTasks() {
-    conectarDB()
+    await conectarDB()
     const tasks = await Task.find()
     return tasks
 }

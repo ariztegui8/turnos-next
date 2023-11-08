@@ -15,6 +15,7 @@ const Register = () => {
     password: '',
   })
   const [error, setError] = useState('')
+  const [isLoading, setIsLoading] = useState(false);
 
 
   const router = useRouter()
@@ -29,6 +30,7 @@ const Register = () => {
 
   const createUser = async () => {
     try {
+      setIsLoading(true);
       const res = await axios.post('/api/auth/signup', formulario, {
         headers: {
           'Content-Type': 'application/json'
@@ -36,7 +38,8 @@ const Register = () => {
       });
       console.log('register', res);
 
-       if (res?.status == 200) {
+      if (res?.status == 200) {
+        setIsLoading(false);
         registerSuccess()
         router.push('/login')
         router.refresh()
@@ -56,12 +59,13 @@ const Register = () => {
       // }
 
     } catch (error) {
+      setIsLoading(false);
       console.log(error);
       if (error instanceof AxiosError) {
         setError(error.response?.data.message)
         setTimeout(() => {
           setError('');
-      }, 3000);
+        }, 3000);
       }
     }
 
@@ -139,9 +143,20 @@ const Register = () => {
               </div>
             }
 
-            <div className='flex '>
-              <button type='submit' className="btn w-full text-[#fff] bg-sky-600 hover:bg-sky-600 ">Registrar</button>
-            </div>
+            {isLoading ?
+              <div className='flex '>
+                <button className="btn w-full text-[#fff] bg-sky-600 hover:bg-sky-600">
+                  <span className="loading loading-spinner"></span>
+                  loading
+                </button>
+              </div>
+              :
+              <div className='flex '>
+                <button type='submit' className="btn w-full text-[#fff] bg-sky-600 hover:bg-sky-600 ">Registrar</button>
+              </div>
+
+            }
+
           </form>
         </div>
 
@@ -149,10 +164,10 @@ const Register = () => {
           <p>¿Ya tienes cuenta? <Link className="text-green-600" href={'/login'}>Inicia sesion</Link></p>
         </div>
 
-          <Toaster
-            position="top-center"
-          />
-          {/* <button onClick={() => toast.success('My success toast')}>Give me a toast</button> */}
+        <Toaster
+          position="top-center"
+        />
+        {/* <button onClick={() => toast.success('My success toast')}>Give me a toast</button> */}
       </div>
     </>
   )

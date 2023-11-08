@@ -12,6 +12,7 @@ const Login = () => {
     password: '',
   })
   const [error, setError] = useState('')
+  const [isLoading, setIsLoading] = useState(false);
 
 
   const router = useRouter()
@@ -26,6 +27,7 @@ const Login = () => {
 
   const createUser = async () => {
     try {
+      setIsLoading(true);
       const res = await signIn('credentials', {
         email: email,
         password: password,
@@ -35,9 +37,13 @@ const Login = () => {
 
       if (res?.error) return setError(res.error)
 
-      if (res?.ok) return router.push('/dashboard')
+      if (res?.ok) {
+        setIsLoading(false);
+        return router.push('/dashboard');
+      }
 
     } catch (error) {
+      setIsLoading(false);
       console.log(error);
     }
 
@@ -105,9 +111,21 @@ const Login = () => {
               </div>
             }
 
-            <div className='flex '>
-              <button type='submit' className="btn w-full text-[#fff] bg-green-600 hover:bg-green-600 ">Login</button>
-            </div>
+            {isLoading ?
+             <div className='flex '>
+              <button className="btn w-full text-[#fff] bg-green-600 hover:bg-green-600">
+                <span className="loading loading-spinner"></span>
+                loading
+              </button>
+              </div>
+              :
+              <div className='flex '>
+                <button type='submit' className="btn w-full text-[#fff] bg-green-600 hover:bg-green-600 ">Login</button>
+              </div>
+
+            }
+
+
 
             <div className="divider text-xs my-4">OR</div>
 

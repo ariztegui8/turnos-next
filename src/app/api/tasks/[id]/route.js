@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 export async function GET(request, { params }) {
     try {
-        conectarDB()
+        await conectarDB()
         const taskFound = await Task.findById(params.id)
         if (!taskFound)
             return NextResponse.json({

@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 export async function GET(request, { params }) {
     try {
-        conectarDB()
+        await conectarDB()
         const shiftFound = await Shift.findById(params.id)
         if (!shiftFound)
             return NextResponse.json({

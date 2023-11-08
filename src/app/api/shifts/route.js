@@ -3,7 +3,7 @@ import conectarDB from "@/utils/conectarDB";
 import { NextResponse } from "next/server";
 
 export async function GET(){
-    conectarDB()
+    await conectarDB()
     const shift = await Shift.find()
     return NextResponse.json({shift})
 }
