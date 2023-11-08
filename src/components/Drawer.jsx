@@ -68,8 +68,9 @@ const Drawer = () => {
             </div>
             <div className=" px-2 mx-2">
               <Link href="/" className="font-bold">
-                <div className="flex items-center gap-3 hover:text-zinc-500">
-                  <FaPeopleGroup size={40} />
+                <div className="flex items-center gap-1 hover:text-zinc-500">
+                  {/* <FaPeopleGroup size={40} /> */}
+                  <img width="60px"  className='m-auto' src="/assets/logo-turno.svg" alt="gohan" />
                   <p>Turnos</p>
                 </div>
               </Link>
