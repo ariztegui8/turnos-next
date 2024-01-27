@@ -9,6 +9,7 @@ import { IoMdContact } from "react-icons/io";
 import { TbLogout2 } from "react-icons/tb";
 import { TbLogout } from "react-icons/tb";
 import { AiFillClockCircle } from "react-icons/ai";
+import { FaCirclePlus } from "react-icons/fa6";
 import { IoIosArrowDown } from "react-icons/io";
 import { ImUser } from "react-icons/im";
 import { MdApartment } from "react-icons/md";
@@ -17,9 +18,9 @@ import { signIn, signOut, useSession } from 'next-auth/react'
 
 
 const Drawer = () => {
+
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-  // const [nameAvatar, setNameAvatar] = useState('')
+  const [menuVisible, setMenuVisible] = useState(false);
 
   const handleClick = () => {
     if (drawerOpen) {
@@ -27,12 +28,8 @@ const Drawer = () => {
     }
   };
 
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
 
-
-  const { data: session , status} = useSession()
+  const { data: session, status } = useSession()
   console.log('session', session);
 
 
@@ -70,7 +67,7 @@ const Drawer = () => {
               <Link href="/" className="font-bold">
                 <div className="flex items-center gap-1 hover:text-zinc-500">
                   {/* <FaPeopleGroup size={40} /> */}
-                  <img width="60px"  className='m-auto' src="/assets/logo-turno.svg" alt="gohan" />
+                  <img width="60px" className='m-auto' src="/assets/logo-turno.svg" alt="gohan" />
                   <p>Turnos</p>
                 </div>
               </Link>
@@ -90,18 +87,23 @@ const Drawer = () => {
                     </div>
 
                     <div className="font-semibold">
-                      <Link className="hover:text-zinc-500" href="/shift/form">Turnos</Link>
+                      <Link className="hover:text-zinc-500" href="/shift/form">Nuevo turno</Link>
                     </div>
 
                     <div className="avatar online placeholder dropdown dropdown-hover ">
-                      <div tabIndex={0} className="bg-orange-600 text-white rounded-full w-9 cursor-pointer mb-1">
+                      <div onClick={() => setMenuVisible(!menuVisible)} tabIndex={0} className="bg-orange-600 text-white rounded-full w-9 cursor-pointer mb-1">
                         <span className="text-lg">{session?.user?.name.charAt(0).toUpperCase()}</span>
                       </div>
-                      <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-                        <li >
-                          <Link onClick={() => { signOut({ callbackUrl: "/" }) }} href="#">Cerrar sesion</Link>
-                        </li>
-                      </ul>
+                      {menuVisible && (
+                        <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                          <li >
+                            <Link onClick={() => { signOut({ callbackUrl: "/" }); setMenuVisible(false); }} href="#">Cerrar sesion</Link>
+                          </li>
+                          <li >
+                            <Link href="/shift/items" onClick={() => setMenuVisible(false)}>Ver turnos</Link>
+                          </li>
+                        </ul>
+                      )}
                     </div>
 
                     {/* <li className="font-semibold">
@@ -173,8 +175,16 @@ const Drawer = () => {
                 <li>
                   <Link onClick={handleClick} href="/shift/form">
                     <div className="flex items-center gap-2">
+                      <FaCirclePlus size={25} />
+                      <p>Crear turno</p>
+                    </div>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/shift/items">
+                    <div className="flex items-center gap-2">
                       <AiFillClockCircle size={25} />
-                      <p>Turnos</p>
+                      <p>Ver turnos</p>
                     </div>
                   </Link>
                 </li>
