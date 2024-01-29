@@ -7,7 +7,7 @@ const Home = () => {
       <div className='w-full m-auto'>
         <div className='mb-3 w-full text-center'>
           <h1 className='text-2xl font-bold mb-6'>Bienvenidos al Team Ariztegui</h1>
-          <img width="300px"  className='m-auto' src="/assets/vegeta2.jpg" alt="gohan" />
+          <img  className='m-auto rounded-lg' src="/assets/gohanGif.gif" alt="gohan" />
         </div>
       </div>
     </div>
