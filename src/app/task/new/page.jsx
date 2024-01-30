@@ -6,6 +6,7 @@ const FormTask = () => {
 
     const router = useRouter();
     const params = useParams()
+    console.log('params', params.id);
 
     const [formulario, setFormulario] = useState({
         title: '',
