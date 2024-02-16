@@ -14,6 +14,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { ImUser } from "react-icons/im";
 import { MdApartment } from "react-icons/md";
 import { signIn, signOut, useSession } from 'next-auth/react'
+import logo from '../assets/logo-turno.svg'
 
 
 
@@ -67,7 +68,7 @@ const Drawer = () => {
               <Link href="/" className="font-bold">
                 <div className="flex items-center gap-1 hover:text-zinc-500">
                   {/* <FaPeopleGroup size={40} /> */}
-                  <img width="60px" className='m-auto' src="/assets/logo-turno.svg" alt="gohan" />
+                  <img width="60px" className='m-auto' src={logo.src} alt="gohan" />
                   <p>Turnos</p>
                 </div>
               </Link>
