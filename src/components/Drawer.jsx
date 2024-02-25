@@ -22,6 +22,7 @@ const Drawer = () => {
 
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [menuVisible, setMenuVisible] = useState(false);
+  console.log('drawerOpen', drawerOpen);
 
   const handleClick = () => {
     if (drawerOpen) {
@@ -182,7 +183,7 @@ const Drawer = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/shift/items">
+                  <Link onClick={handleClick} href="/shift/items">
                     <div className="flex items-center gap-2">
                       <AiFillClockCircle size={25} />
                       <p>Ver turnos</p>
